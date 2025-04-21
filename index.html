@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Registration Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      padding-top: 50px;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+      width: 300px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+    .error {
+      color: rgb(122, 6, 6);
+      font-size: 13px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background-color: #543cbd;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4e43ad;
+    }
+  </style>
+</head>
+<body>
+
+<form id="registerForm">
+  <h2>Register</h2>
+  <input type="text" id="name" placeholder="Full Name" required>
+  <div class="error" id="nameError"></div>
+
+  <input type="email" id="email" placeholder="Email" required>
+  <div class="error" id="emailError"></div>
+
+  <input type="text" id="phone" placeholder="Phone Number" required>
+  <div class="error" id="phoneError"></div>
+
+  <input type="password" id="password" placeholder="Password" required>
+  <div class="error" id="passError"></div>
+
+  <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+  <div class="error" id="confirmError"></div>
+
+  <button type="submit">Register</button>
+</form>
+
+<script>
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Clear old errors
+    document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+    // Get values
+    let name = document.getElementById('name').value.trim();
+    let email = document.getElementById('email').value.trim();
+    let phone = document.getElementById('phone').value.trim();
+    let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (name === '') {
+      document.getElementById('nameError').textContent = 'Name is required.';
+      valid = false;
+    }
+
+    if (!email.includes('@')) {
+      document.getElementById('emailError').textContent = 'Invalid email.';
+      valid = false;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      document.getElementById('phoneError').textContent = 'Enter 10 digit phone number.';
+      valid = false;
+    }
+
+    if (password.length < 6) {
+      document.getElementById('passError').textContent = 'Password must be at least 6 characters.';
+      valid = false;
+    }
+
+    if (password !== confirmPassword) {
+      document.getElementById('confirmError').textContent = 'Passwords do not match.';
+      valid = false;
+    }
+
+    if (valid) {
+      alert('Registration successful!');
+      document.getElementById('registerForm').reset();
+    }
+  });
+</script>
+
+</body>
+</html>
+
